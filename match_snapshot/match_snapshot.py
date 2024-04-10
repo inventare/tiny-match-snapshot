@@ -132,6 +132,17 @@ class MatchSnapshot:
         """
         return os.path.join(self.failed_path, f"{id}/{image_type}.png")
 
+    def _grant_error_path_exists(self, id: str):
+        """
+        Check if the error path exists and if not, create it.
+
+        Args:
+            id: a unique id to gets the path name.
+        """
+        error_path = os.path.join(self.failed_path, id)
+        if not os.path.exists(error_path):
+            os.makedirs(error_path)
+
     def _save_failed_images(self, id: str, image, comparison, diff, threshold_diff):
         """
         Save snapshot, comparison, difference and thresholded difference images.
@@ -143,6 +154,8 @@ class MatchSnapshot:
             diff: the difference image.
             threshold_diff: the thresholded difference image.
         """
+        self._grant_error_path_exists(id)
+
         if image:
             image.save(self._get_failed_filename(id, "snapshot"))
         if comparison:
