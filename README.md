@@ -23,15 +23,64 @@ pip install tiny-match-snapshot
 
 ## Usage
 
-TODO: write this
+Some examples of usage is disponible at `examples` folder on the root of this repository. For more complex usages, this package is used to run UI regression tests on the [inventare/django-image-uploader-widget](https://github.com/inventare/django-image-uploader-widget/tree/main/tests/tests_ui_regression) package.
 
 ### With unittest and playwright
 
-TODO: write this
+A first way, using `unittest` and `playwright` is:
+
+```python
+import unittest
+from unittest.case import TestCase
+from match_snapshot import MatchSnapshot
+from playwright.sync_api import sync_playwright
+
+class MyTests(TestCase, MatchSnapshot):
+    snapshot_path = "./__snapshots__"
+    failed_path = "./__errors__"
+
+    def test_selenium(self):
+        playwright = sync_playwright().start()
+        browser = playwright.chromium.launch()
+        page = browser.new_page()
+        page.goto("https://playwright.dev/")
+
+        banner = page.query_selector(".hero.hero--primary")
+
+        self.assert_match_snapshot(banner, "test_unittest_playwright")
+
+        browser.close()
+
+if __name__ == '__main__':
+    unittest.main()
+```
 
 ### With unittest and selenium
 
-TODO: write this
+An simple example of using `unittest` and `selenium` is:
+
+```python
+import unittest
+from unittest.case import TestCase
+from match_snapshot import MatchSnapshot
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+class MyTests(TestCase, MatchSnapshot):
+    snapshot_path = "./__snapshots__"
+    failed_path = "./__errors__"
+
+    def test_selenium(self):
+        driver = webdriver.Chrome()
+        driver.get("http://www.python.org")
+
+        banner = driver.find_element(By.CLASS_NAME, "main-header")
+
+        self.assert_match_snapshot(banner, "test_unittest_selenium")
+
+if __name__ == '__main__':
+    unittest.main()
+```
 
 ### With pytest and playwright
 
@@ -49,12 +98,30 @@ class TestsPlaywright(MatchSnapshot):
         page.goto("https://playwright.dev/")
 
         element = page.query_selector('.hero.hero--primary')
-        MatchSnapshot().assert_match_snapshot(element, 'test_pytest_playwright')
+        self.assert_match_snapshot(element, 'test_pytest_playwright')
 ```
 
 ### With pytest and selenium
 
-TODO: write this
+A, not beautifull way to use with `pytest` and `selenium` is to use:
+
+```python
+from match_snapshot import MatchSnapshot
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+class TestsSelenium(MatchSnapshot):
+    snapshot_path = "./__snapshots__"
+    failed_path = "./__errors__"
+
+    def test_selenium(self):
+        driver = webdriver.Chrome()
+        driver.get("http://www.python.org")
+
+        banner = driver.find_element(By.CLASS_NAME, "main-header")
+
+        self.assert_match_snapshot(banner, "test_pytest_selenium")
+```
 
 ## Extending the behaviour
 
