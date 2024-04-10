@@ -1,7 +1,7 @@
 [project]
 requires-python = ">= 3.8"
 name = 'tiny-match-snapshot'
-version = '0.0.1'
+version = '0.0.2'
 description='Tiny snapshot assertion for tests'
 dependencies = ["Pillow"]
 authors = [{name = "Eduardo Oliveira", email = "eduardo_y05@outlook.com"}]
