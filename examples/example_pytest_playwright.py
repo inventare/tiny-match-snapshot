@@ -11,4 +11,4 @@ class TestsPlaywright(MatchSnapshot):
         page.goto("https://playwright.dev/")
 
         element = page.query_selector(".hero.hero--primary")
-        MatchSnapshot().assert_match_snapshot(element, "test_pytest_playwright")
+        self.assert_match_snapshot(element, "test_pytest_playwright")
