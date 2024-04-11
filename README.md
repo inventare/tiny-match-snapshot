@@ -6,6 +6,7 @@
     <img alt="GitHub License" src="https://img.shields.io/github/license/inventare/tiny-match-snapshot" />
     <img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/tiny-match-snapshot" />
     <img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/inventare/tiny-match-snapshot/tests.yml?label=tests" />
+    <img src='https://coveralls.io/repos/github/inventare/tiny-match-snapshot/badge.svg?branch=main' alt='Coverage Status' />
 </p>
 
 This package provides a tiny match snaptshot utility for usages with **Playwright** or with **Selenium** to capture screenshot of some web element and store it as snapshot and in next runs of tests, compare the taken screenshot with the stored as snapshot.
